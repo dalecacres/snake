@@ -1,0 +1,13 @@
+bugs
+-apples appear under snake
+-snake blocks appear in weird places when the snake grows
+-turning too fast kills
+-score persists between sessions
+-new highscore doesn't overwrite
+
+to do
+-obfusticate code
+-add user
+-score stores to user
+-let user change color of snake and fruit
+-add obstacle spawning
