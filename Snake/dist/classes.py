@@ -2,7 +2,20 @@ import random
 
 BUTTON_SIZE = 100
 BLOCK_SIZE = 30
-MAP_SIZE = 900
+BLOCK_NUM = 30
+MAP_SIZE = BLOCK_NUM * BLOCK_SIZE
+
+def empty_space(array_like):
+	size = BLOCK_SIZE * MAP_SIZE
+	all_spaces = [Vector(row * BLOCK_SIZE, col * BLOCK_SIZE) for col in range(BLOCK_NUM) for row in range(BLOCK_NUM)]
+	for i, cell in enumerate(array_like):
+		x = int(cell.x / BLOCK_SIZE)
+		y = int(cell.y / BLOCK_SIZE)
+		all_spaces[y * BLOCK_NUM + x] = "snake"
+
+	all_spaces = list(filter(lambda el: el != "snake", iter(all_spaces)))
+	return all_spaces
+
 
 class Vector:
 	def __init__(self, x, y):
@@ -29,13 +42,13 @@ class Score:
 
 class Food:
 	def __init__(self, snake_array):
-		self.position = Vector((random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE, (random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE)
-		while self.position in snake_array:
-			self.position = Vector((random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE, (random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE)
+		space = empty_space(snake_array)
+		element = random.randint(0, len(space))
+		self.position = space[element]
 	def update(self, snake_array):
-		self.position = Vector((random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE, (random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE)
-		while self.position in snake_array:
-			self.position = Vector((random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE, (random.randint(1, MAP_SIZE / BLOCK_SIZE) - 1) * BLOCK_SIZE)
+		space = empty_space(snake_array)
+		element = random.randint(0, len(space))
+		self.position = space[element]
 
 class Snake:
 	def __init__(self):
@@ -65,7 +78,7 @@ class Snake:
 
 	def grow(self):
 		self.cells.insert(0, Vector(self.cells[-1].x + self.modifier.x * -1, self.cells[-1].y + self.modifier.y * -1))
-		self.cells.insert(0, Vector(self.cells[-1].x + self.modifier.x * -2, self.cells[-1].y + self.modifier.y * -2))
+		self.cells.insert(0, Vector(self.cells[-1].x + self.modifier.x * -1, self.cells[-1].y + self.modifier.y * -1))
 
 	def overlap(self, vector):
 		return self.cells[-1].x >= vector.x and self.cells[-1].x <= (vector.x + 1) and self.cells[-1].y >= vector.y and self.cells[-1].y <= (vector.y + 1)

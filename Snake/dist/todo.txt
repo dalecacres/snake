@@ -1,0 +1,11 @@
+bugs
+
+-turning too fast kills
+-score persists between sessions
+-new highscore doesn't overwrite
+
+to do
+-obfusticate code
+-add user
+-let user change color of snake and fruit
+-add obstacle spawning

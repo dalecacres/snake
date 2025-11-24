@@ -2,11 +2,12 @@ import pygame
 from classes import Vector
 BUTTON_SIZE = 100
 BLOCK_SIZE = 30
-MAP_SIZE = 900
+BLOCK_NUM = 30
+MAP_SIZE = BLOCK_NUM * BLOCK_SIZE
 
 class Draw:
 	def __init__(self):
-		icon = pygame.image.load(r'C:\Users\Patient\Snake\dist\snake.png')
+		icon = pygame.image.load(r'.\snake.png')
 		pygame.display.set_caption('Snake')
 		pygame.display.set_icon(icon)
 		pygame.init()
